@@ -2,7 +2,7 @@
 
 A sleek, enterprise-grade financial analytics dashboard that tracks, filters, and logs international currency metrics in real-time. Built as a full-stack Node.js/Express application, this platform transforms raw institutional data streams into clean, interactive, and highly legible visual metrics.
 
-🔗 **Live Deployment:** [<PASTE_YOUR_RENDER_LIVE_URL_HERE>](<PASTE_YOUR_RENDER_LIVE_URL_HERE>)
+🔗 **Live Deployment:** [https://apex-exchange-analytics.onrender.com](https://apex-exchange-analytics.onrender.com)
 
 ---
 
