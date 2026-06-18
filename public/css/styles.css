@@ -1,0 +1,268 @@
+/* ==========================================
+   THE OVERLAY CORE LAYOUT
+   ========================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    color: #ffffff;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-color: #0b0f19;
+}
+
+.main-wrapper {
+    position: relative;
+    z-index: 1; /* Synchronized priority layer to sit over fixed elements */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ==========================================
+   NAVBAR ON TOP OF VIDEO
+   ========================================== */
+.navbar {
+    background: rgba(11, 15, 25, 0.75); 
+    backdrop-filter: blur(12px); 
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-logo {
+    color: #00ffaa; 
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 1.3rem;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-item {
+    color: rgba(255, 255, 255, 0.75);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
+}
+
+.nav-item:hover {
+    color: #00ffaa;
+}
+
+/* ==========================================
+   DATA PANELS & CARDS ON TOP OF VIDEO
+   ========================================== */
+.dashboard-content {
+    max-width: 1200px;
+    width: 100%;
+    margin: 3rem auto;
+    padding: 0 2rem;
+    flex: 1;
+}
+
+.page-header h1 {
+    font-size: 2.2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); /* Adds drop-shadow to handle bright backgrounds */
+}
+
+.page-header p {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 2rem;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+/* Frosted glass layout card panels 
+   Modified to be slightly more defensive so white text pops against your now ultra-bright video.
+*/
+.data-card, .control-panel {
+    background: rgba(11, 20, 38, 0.85); 
+    backdrop-filter: blur(20px); 
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.5);
+}
+
+/* ==========================================
+   HIGH-VISIBILITY VIDEO BACKGROUND
+   ========================================== */
+.video-background-container {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1; 
+    overflow: hidden;
+}
+
+#bg-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* ✅ Removed dimming filters! Your video will now render at full brightness and pop completely. */
+    filter: brightness(100%) contrast(100%); 
+}
+
+/* ==========================================
+   FINANCIAL DATA TABLES
+   ========================================== */
+.analytics-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.5rem;
+    text-align: left;
+}
+
+.analytics-table th {
+    background: rgba(0, 255, 170, 0.1); 
+    color: #00ffaa; 
+    padding: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid rgba(0, 255, 170, 0.2);
+}
+
+.analytics-table td {
+    padding: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 0.95rem;
+}
+
+.analytics-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.asset-code {
+    color: #ffffff;
+}
+
+.asset-value {
+    font-family: 'Courier New', Courier, monospace; 
+    color: #00ffaa;
+    font-weight: 600;
+}
+
+/* ==========================================
+   FORM INPUTS, DROPDOWNS & BUTTON STYLING
+   ========================================== */
+
+/* The outer layout wrapper for forms */
+.filter-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    align-items: flex-end; /* Aligns the button clean with input boxes */
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+    min-width: 200px; /* Prevents forms from getting squished on smaller viewports */
+}
+
+.form-group label {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.7);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+}
+
+/* Styled Dropdown Option Controls & Date Pickers */
+.custom-select, .custom-input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    background: rgba(11, 20, 38, 0.6); /* Sleek dark opaque filling */
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+    color: #ffffff;
+    font-size: 0.95rem;
+    outline: none;
+    transition: all 0.25s ease-in-out;
+}
+
+/* Chrome Calendar Icon styling modification */
+.custom-input::-webkit-calendar-picker-indicator {
+    filter: invert(1); /* Forces the calendar icon to turn white */
+    cursor: pointer;
+}
+
+/* Interactive Hover & Focus actions */
+.custom-select:hover, .custom-input:hover {
+    border-color: rgba(0, 255, 170, 0.5); /* Glowing emerald transition edge */
+    background: rgba(11, 20, 38, 0.8);
+}
+
+.custom-select:focus, .custom-input:focus {
+    border-color: #00ffaa;
+    box-shadow: 0 0 10px rgba(0, 255, 170, 0.25);
+}
+
+/* Customize dropdown option list overlay style */
+.custom-select option {
+    background: #121a2b; /* Dark dropdown choices matching dashboard panels */
+    color: #ffffff;
+}
+
+/* Institutional Enterprise Button Formatting */
+.btn-primary {
+    background: #00ffaa; /* Radiant neon emerald accent filling */
+    color: #0b0f19; /* High-contrast dark text inside the button */
+    border: none;
+    padding: 0.85rem 1.8rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 4px 15px rgba(0, 255, 170, 0.2);
+    height: 46px; /* Ensures precise level matching alongside form boxes */
+}
+
+.btn-primary:hover {
+    background: #00cc88; /* Darker emerald hue shift on hover actions */
+    transform: translateY(-1px); /* Delicate micro-lift animation effect */
+    box-shadow: 0 6px 20px rgba(0, 255, 170, 0.35);
+}
+
+.btn-primary:active {
+    transform: translateY(1px); /* Click feedback compression movement */
+}
+
+/* Utility alignments */
+.flex-form {
+    display: flex;
+    justify-content: space-between;
+}
+
+.align-bottom {
+    margin-top: auto;
+}

@@ -1,0 +1,56 @@
+<%- include("partials/header.ejs") %>
+
+<main class="dashboard-content">
+    <div class="page-header">
+        <h1>Institutional Currency Feed</h1>
+        <p>Real-time conversion indexes relative to market benchmarks.</p>
+    </div>
+
+    <% if (error) { %>
+        <div class="error-banner">
+            <p><strong>System Alert:</strong> <%= error %></p>
+        </div>
+    <% } %>
+
+    <section class="data-card">
+        <div class="card-meta">
+            <h3>Base Benchmark: <span class="text-highlight"><%= base %></span></h3>
+            <p>Last Institutional Sync: <strong><%= date %></strong></p>
+        </div>
+
+        <table class="analytics-table">
+            <thead>
+                <tr>
+                    <th>Asset Class (Currency)</th>
+                    <th>Exchange Index Value (Per 1.00 <%= base %>)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (const currency in rates) { %>
+                    <tr>
+                        <td class="asset-code"><strong><%= currency %></strong></td>
+                        <td class="asset-value"><%= rates[currency] %></td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </section>
+
+    <section class="control-panel">
+        <form action="/" method="GET" class="filter-form">
+            <div class="form-group">
+                <label for="base-select">Select Institutional Benchmark:</label>
+                <select name="base" id="base-select" class="custom-select">
+                    <% for (const code in currencyList) { %>
+                        <option value="<%= code %>" <%= code === base ? 'selected' : '' %>>
+                            <%= code %> - <%= currencyList[code] %>
+                        </option>
+                    <% } %>
+                </select>
+            </div>
+            <button type="submit" class="btn-primary">Update Benchmark</button>
+        </form>
+    </section>
+</main>
+
+<%- include("partials/footer.ejs") %>

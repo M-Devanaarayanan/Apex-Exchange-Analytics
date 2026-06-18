@@ -1,0 +1,82 @@
+<%- include("partials/header.ejs") %>
+
+<main class="dashboard-content">
+    <div class="page-header">
+        <h1>Market Performance Trends</h1>
+        <p>Analyze chronological valuation fluctuations across customized historical intervals.</p>
+    </div>
+
+    <% if (error) { %>
+        <div class="error-banner">
+            <p><strong>System Alert:</strong> <%= error %></p>
+        </div>
+    <% } %>
+
+    <section class="control-panel">
+        <form action="/trends" method="GET" class="filter-form flex-form">
+            <div class="form-group">
+                <label>Base Asset:</label>
+                <select name="base" class="custom-select">
+                    <% for (const code in currencyList) { %>
+                        <option value="<%= code %>" <%= code === base ? 'selected' : '' %>><%= code %></option>
+                    <% } %>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Compare Against:</label>
+                <select name="target" class="custom-select">
+                    <% for (const code in currencyList) { %>
+                        <option value="<%= code %>" <%= code === target ? 'selected' : '' %>><%= code %></option>
+                    <% } %>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>From:</label>
+                <input type="date" name="start" value="<%= start %>" class="custom-input" required>
+            </div>
+
+            <div class="form-group">
+                <label>To:</label>
+                <input type="date" name="end" value="<%= end %>" class="custom-input" required>
+            </div>
+
+            <button type="submit" class="btn-primary align-bottom">Generate Matrix</button>
+        </form>
+    </section>
+
+    <% if (Object.keys(timeSeries).length > 0) { %>
+        <section class="data-card">
+            <div class="card-meta">
+                <h3>Historical Stream: <span class="text-highlight"><%= base %> to <%= target %></span></h3>
+                <p>Timeline Range: <strong><%= start %></strong> to <strong><%= end %></strong></p>
+            </div>
+
+            <table class="analytics-table">
+                <thead>
+                    <tr>
+                        <th>Date of Record</th>
+                        <th>Index Exchange Rate (Value of 1 <%= base %>)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (const date in timeSeries) { %>
+                        <tr>
+                            <td class="asset-code"><%= date %></td>
+                            <td class="asset-value highlight-num">
+                                <%= timeSeries[date][target] %> <%= target %>
+                            </td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </section>
+    <% } else { %>
+        <div class="info-banner">
+            <p>No trading data compiled for this structural cross-interval match. Try selecting weekdays.</p>
+        </div>
+    <% } %>
+</main>
+
+<%- include("partials/footer.ejs") %>
