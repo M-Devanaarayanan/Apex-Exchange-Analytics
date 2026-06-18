@@ -4,7 +4,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const API_URL = "https://api.frankfurter.app";
 
 // Reconstruct __dirname for ES Modules
